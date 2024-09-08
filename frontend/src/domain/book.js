@@ -3,7 +3,7 @@ export class Book{
         this.id = ''
         this.title = ''
         this.author = ''
-        this.publisYear = 0
+        this.publishYear = 0
         this.createdAt = ''
         this.updatedAt = ''
     }
