@@ -13,4 +13,13 @@ export class Book{
         return result
     }
 
+    validate() {
+        if (!this.title || !this.author) {
+            throw new Error('Title and author are required.');
+        }
+        if (typeof this.publishYear !== 'number' || this.publishYear < 0) {
+            throw new Error('Publish year must be a positive number.');
+        }
+    }
+
 }
