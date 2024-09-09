@@ -16,6 +16,17 @@ class BookService {
 
         return book
     }
+
+    async createBook(book){
+        const newBook = await axios.post(`http://localhost:5555/books`, book, 
+            {
+                headers: {
+                'Content-Type': 'application/json',
+                },
+            })
+        
+        return newBook.data
+    }
 }
 
 export const bookService = new BookService()
