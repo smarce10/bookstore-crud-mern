@@ -27,6 +27,18 @@ class BookService {
         
         return newBook.data
     }
+
+    async editBook(book, bookId){
+        const bookEdited = await axios.put(`http://localhost:5555/books/${bookId}`, book,
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }
+        )
+
+        return bookEdited.data
+    }
 }
 
 export const bookService = new BookService()

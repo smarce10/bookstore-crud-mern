@@ -1,9 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
-
-
 
 const BookForm = ({ book , operation }) => {
 
@@ -26,7 +23,11 @@ const BookForm = ({ book , operation }) => {
     }
 
     const isEdit = () => {
-        return book.title !== ""
+        if(book){
+            return book.title !== ""
+        }else{
+            return false
+        }
     }
 
     const updateBookProperties = () => {
@@ -37,6 +38,7 @@ const BookForm = ({ book , operation }) => {
 
     useEffect(() => {
         if (book) {
+            console.log("entra")
             setBookTitle(book.title)
             setBookAuthor(book.author)
             setPublishYear(book.publishYear)
@@ -54,7 +56,7 @@ const BookForm = ({ book , operation }) => {
                         className="rounded-sm bg-gray-900 border-b-gray-100 border-b-2 border-white outline-none caret-gray-100 text-gray-100 text-base" 
                         type="text" 
                         id="title" 
-                        value={bookTitle} 
+                        value={bookTitle ?? ""} 
                         onChange={(e) => setBookTitle(e.target.value)}
                         required
                     />
@@ -65,7 +67,7 @@ const BookForm = ({ book , operation }) => {
                         className="rounded-sm bg-gray-900 border-b-gray-100 border-b-2 border-white outline-none caret-gray-100 text-gray-100 text-base" 
                         type="text" 
                         id="author" 
-                        value={bookAuthor} 
+                        value={bookAuthor ?? ""} 
                         onChange={(e) => setBookAuthor(e.target.value)}
                         required
                     />
@@ -76,7 +78,7 @@ const BookForm = ({ book , operation }) => {
                         className="rounded-sm bg-gray-900 border-b-gray-100 border-b-2 border-white outline-none caret-gray-100 text-gray-100 text-base"
                         type="number" 
                         id="publishYear" 
-                        value={bookPublishYear} 
+                        value={bookPublishYear ?? 0} 
                         onChange={(e) => setPublishYear(e.target.value)}
                         required
                     />

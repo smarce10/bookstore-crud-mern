@@ -15,7 +15,6 @@ const CreateBook = () => {
       const book = await bookService.createBook(newBook)
       enqueueSnackbar('Book created succesfully', { variant: "success", autoHideDuration: 2000 })
       navigate("/")
-      console.log(book)
     } catch (error) {
       enqueueSnackbar(`Something went wrong: ${error}`, { variant: "error", autoHideDuration: 2000 })
     }
