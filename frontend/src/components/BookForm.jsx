@@ -10,7 +10,6 @@ const BookForm = ({ book , operation }) => {
     const [bookTitle, setBookTitle] = useState(book ? book.title : "")
     const [bookAuthor, setBookAuthor] = useState(book ? book.author : "")
     const [bookPublishYear, setPublishYear] = useState(book ? book.publishYear : "")
-    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -20,7 +19,6 @@ const BookForm = ({ book , operation }) => {
         try{
             book.validate()
             await operation(book)
-            navigate("/")
         }catch(error){
             console.log(error)
         }

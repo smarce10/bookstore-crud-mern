@@ -2,18 +2,22 @@ import BookForm from "../components/BookForm"
 import { useState, useEffect } from "react"
 import { bookService } from "../services/bookService"
 import { Book } from "../domain/book"
+import { useSnackbar } from "notistack"
+import { useNavigate } from "react-router-dom"
 
 const CreateBook = () => {
+  const { enqueueSnackbar } = useSnackbar()
+  const navigate = useNavigate()
 
-  const [book, setBook] = useState()
 
   const createBook = async (newBook) => {
     try {
       const book = await bookService.createBook(newBook)
-      console.log(`se ha creado:`)
+      enqueueSnackbar('Book created succesfully', { variant: "success", autoHideDuration: 2000 })
+      navigate("/")
       console.log(book)
     } catch (error) {
-      console.log(error)
+      enqueueSnackbar(`Something went wrong: ${error}`, { variant: "error", autoHideDuration: 2000 })
     }
   }
 
