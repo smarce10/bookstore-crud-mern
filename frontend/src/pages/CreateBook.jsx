@@ -17,23 +17,10 @@ const CreateBook = () => {
     }
   }
 
-  useEffect(() => {
-    const bookTest = {
-      title: "title",
-      author: "mariano",
-      publishYear: 2000
-    }
-
-    const bookEntity = Book.fromJSON(bookTest)
-
-    setBook(bookEntity)
-  }, [])
-
-
   return (
     <>
       <div className="w-full h-screen mx-auto p-4 bg-gray-900 flex justify-center">
-        <BookForm book={ book } operation={ createBook }/>
+        <BookForm book = { new Book() } operation={ createBook }/>
       </div>
     </>
   )

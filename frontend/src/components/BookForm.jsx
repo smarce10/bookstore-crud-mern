@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+
 
 
 const BookForm = ({ book , operation }) => {
@@ -8,19 +10,25 @@ const BookForm = ({ book , operation }) => {
     const [bookTitle, setBookTitle] = useState(book ? book.title : "")
     const [bookAuthor, setBookAuthor] = useState(book ? book.author : "")
     const [bookPublishYear, setPublishYear] = useState(book ? book.publishYear : "")
+    const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         updateBookProperties()
 
         try{
             book.validate()
-            operation(book)
+            await operation(book)
+            navigate("/")
         }catch(error){
             console.log(error)
         }
         console.log(book)
+    }
+
+    const isEdit = () => {
+        return book.title !== ""
     }
 
     const updateBookProperties = () => {
@@ -40,7 +48,7 @@ const BookForm = ({ book , operation }) => {
   return (
     <>
         <form className="min-w-80 h-fit px-12 py-8 border rounded-md" onSubmit={handleSubmit}>
-            <h1 className="text-3xl font-bold text-gray-300 mb-4 text-center">{book ? "Edit" : "Create"} Book</h1>
+            <h1 className="text-3xl font-bold text-gray-300 mb-4 text-center">{ isEdit() ? "Edit" : "Create" } Book</h1>
             <div className="text-xl flex flex-col gap-4">
                 <div className="flex flex-col">
                     <label className="text-gray-300" htmlFor="title">Title</label>
@@ -83,7 +91,7 @@ const BookForm = ({ book , operation }) => {
                     </button>
                 </Link>
                 <button className="rounded-sm bg-gray-100 flex-grow text-gray-800 p-1 font-bold" type="submit">
-                    { book ? "Update" : "Send" }
+                    { isEdit()  ? "Update" : "Create" }
                 </button>
             </div>
         </form>
