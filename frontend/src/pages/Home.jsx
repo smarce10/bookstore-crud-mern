@@ -5,11 +5,14 @@ import { FaInfoCircle } from "react-icons/fa"
 import { FaPencilAlt } from "react-icons/fa"
 import { Link } from "react-router-dom"
 import { FaPlusCircle } from "react-icons/fa"
+import ModalDelete from "../components/ModalDelete"
 
 
 const Home = () => {
 
   const [books, setBooks] = useState([])
+  const [showModal, setShowModal] = useState(false)
+  const [selectedBook, setSelectedBook] = useState()
 
   const getBooks = async () => {
     try {
@@ -68,15 +71,24 @@ const Home = () => {
                     <Link to={`books/edit/${book._id}`}>
                       <FaPencilAlt className="text-yellow-300"/>
                     </Link>
-                    <Link to={`books/delete/${book._id}`}>
-                      <FaTrash className="text-red-600"/>
-                    </Link>
+                    <FaTrash onClick={() => {
+                      setShowModal(true)
+                      setSelectedBook(book._id)
+                    }} className="text-red-600 cursor-pointer"/>
                   </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        {
+          showModal && (
+            <ModalDelete handleClose={() => {
+              setShowModal()
+              getBooks()
+            }} bookId={selectedBook}/>
+          )
+        }
       </div>
     </>
   )
