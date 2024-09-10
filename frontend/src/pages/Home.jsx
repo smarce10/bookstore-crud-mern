@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react"
 import { bookService } from "../services/bookService"
-import { FaTrash } from "react-icons/fa"
-import { FaInfoCircle } from "react-icons/fa"
-import { FaPencilAlt } from "react-icons/fa"
 import { Link } from "react-router-dom"
 import { FaPlusCircle } from "react-icons/fa"
 import ModalDelete from "../components/ModalDelete"
+import TableView from "../components/TableView"
+import CardView from "../components/CardView"
 
 
 const Home = () => {
@@ -13,6 +12,7 @@ const Home = () => {
   const [books, setBooks] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [selectedBook, setSelectedBook] = useState()
+  const [viewMode, setViewMode] = useState("card")
 
   const getBooks = async () => {
     try {
@@ -23,22 +23,33 @@ const Home = () => {
     } 
   }
 
+  const configureModal = (bookId) => {
+      setShowModal(true)
+      setSelectedBook(bookId)
+  }
+
   useEffect(()=> {
     getBooks()
   }, [])
 
   return (
     <>
-      <div className="w-full h-screen mx-auto p-4 bg-gray-900">
-        <div className="flex justify-between items-center">
+      <div className="w-full min-h-screen mx-auto p-4 bg-gray-900">
+        <div className="flex justify-center sm:justify-between items-center mb-2 sm:mb-0">
           <h1 className="font-bold text-gray-100 text-6xl">Book List</h1>
 
-          <div className="flex gap-8">
+          <div className="hidden sm:flex sm:gap-8">
             <div className="flex items-center gap-2 font-bold text-gray-900">
-              <button className="p-2 bg-gray-100 rounded-md hover:bg-gray-200 hover:shadow-lg hover:scale-105 transition-all duration-300">
+              <button 
+                  className="p-2 bg-gray-100 rounded-md hover:bg-gray-200 hover:shadow-lg hover:scale-105 transition-all duration-300"
+                  onClick={() => setViewMode("table")}
+              >
                 Table View
               </button>
-              <button className="p-2 bg-gray-100 rounded-md hover:bg-gray-200 hover:shadow-lg hover:scale-105 transition-all duration-300">
+              <button 
+                className="p-2 bg-gray-100 rounded-md hover:bg-gray-200 hover:shadow-lg hover:scale-105 transition-all duration-300"
+                onClick={() => setViewMode("card")}
+              >
                 Card View
               </button>
             </div>
@@ -48,43 +59,16 @@ const Home = () => {
             </Link>
           </div>
         </div>
-        <table className="w-full table-auto ce">
-          <thead className="bg-gray-800 border text-gray-100">
-            <th className="py-5">No</th>
-            <th>Name</th>
-            <th>Author</th>
-            <th>Publish Year</th>
-            <th>Operations</th>
-          </thead>
-          <tbody>
-            {books.map((book, index) => (
-              <tr className={`border ${index % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800'} text-gray-300`} key={book._id}>
-                <td className="text-center p-2">{index + 1}</td>
-                <td className="text-center p-2">{book.title}</td>
-                <td className="text-center p-2">{book.author}</td>
-                <td className="text-center p-2">{book.publishYear}</td>
-                <td className="h-full">
-                  <div className="flex justify-center gap-x-4">
-                    <Link to={`books/details/${book._id}`}>
-                      <FaInfoCircle className="text-blue-400"/>
-                    </Link>
-                    <Link to={`books/edit/${book._id}`}>
-                      <FaPencilAlt className="text-yellow-300"/>
-                    </Link>
-                    <FaTrash onClick={() => {
-                      setShowModal(true)
-                      setSelectedBook(book._id)
-                    }} className="text-red-600 cursor-pointer"/>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {
+          viewMode === "card" ? 
+            <CardView books={ books } configureModal={configureModal} />
+            :
+            <TableView books={ books } configureModal={configureModal}/>
+        }
         {
           showModal && (
             <ModalDelete handleClose={() => {
-              setShowModal()
+              setShowModal(false)
               getBooks()
             }} bookId={selectedBook}/>
           )

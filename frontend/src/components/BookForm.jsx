@@ -43,7 +43,6 @@ const BookForm = ({ book , operation }) => {
 
     useEffect(() => {
         if (book) {
-            console.log("entra")
             setBookTitle(book.title)
             setBookAuthor(book.author)
             setPublishYear(book.publishYear)
