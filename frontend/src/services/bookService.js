@@ -39,6 +39,12 @@ class BookService {
 
         return bookEdited.data
     }
+
+    async deleteBook(bookId){
+        const bookDeleted = await axios.delete(`http://localhost:5555/books/${bookId}`)
+
+        return bookDeleted.data
+    }
 }
 
 export const bookService = new BookService()

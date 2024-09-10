@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const BookForm = ({ book , operation }) => {
 
     const [bookTitle, setBookTitle] = useState(book ? book.title : "")
     const [bookAuthor, setBookAuthor] = useState(book ? book.author : "")
     const [bookPublishYear, setPublishYear] = useState(book ? book.publishYear : "")
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -20,6 +21,10 @@ const BookForm = ({ book , operation }) => {
             console.log(error)
         }
         console.log(book)
+    }
+
+    const backHome = () => {
+      navigate("/")
     }
 
     const isEdit = () => {
@@ -85,12 +90,10 @@ const BookForm = ({ book , operation }) => {
                 </div>
             </div>
             <div className="flex w-full gap-2 mt-8">
-                <Link to={`/`} className="flex-grow">
-                    <button className="rounded-sm bg-gray-100 w-full text-gray-800 p-1 font-bold">
+                <button className="flex-1 rounded-sm bg-gray-100 w-full text-gray-800 p-1 font-bold" onClick={backHome}>
                         Back
-                    </button>
-                </Link>
-                <button className="rounded-sm bg-gray-100 flex-grow text-gray-800 p-1 font-bold" type="submit">
+                </button>
+                <button className="rounded-sm bg-gray-100 flex-1 text-gray-800 p-1 font-bold" type="submit">
                     { isEdit()  ? "Update" : "Create" }
                 </button>
             </div>
