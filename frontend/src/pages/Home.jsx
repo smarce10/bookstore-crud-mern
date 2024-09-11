@@ -5,6 +5,7 @@ import { FaPlusCircle } from "react-icons/fa"
 import ModalDelete from "../components/ModalDelete"
 import TableView from "../components/TableView"
 import CardView from "../components/CardView"
+import Loader from "../components/Loader"
 
 
 const Home = () => {
@@ -13,11 +14,13 @@ const Home = () => {
   const [showModal, setShowModal] = useState(false)
   const [selectedBook, setSelectedBook] = useState()
   const [viewMode, setViewMode] = useState("card")
+  const [useLoader, setUseLoader] = useState()
 
   const getBooks = async () => {
     try {
       const books = await bookService.getBooks()
       setBooks(books)
+      setUseLoader(false)
     } catch (error) {
       console.log(error)
     } 
@@ -29,6 +32,7 @@ const Home = () => {
   }
 
   useEffect(()=> {
+    setUseLoader(true)
     getBooks()
   }, [])
 
@@ -59,12 +63,13 @@ const Home = () => {
             </Link>
           </div>
         </div>
-        {
-          viewMode === "card" ? 
+        {useLoader ? (
+          <Loader/>
+        ) : viewMode === "card" ? (
             <CardView books={ books } configureModal={configureModal} />
-            :
+        ) : (
             <TableView books={ books } configureModal={configureModal}/>
-        }
+        )}
         {
           showModal && (
             <ModalDelete handleClose={() => {
