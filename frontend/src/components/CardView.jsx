@@ -3,10 +3,9 @@ import { FaBook } from "react-icons/fa";
 import { FaBookOpen } from "react-icons/fa";
 import { IoPerson } from "react-icons/io5";
 import { FaRegCalendarAlt } from 'react-icons/fa';
-import { Link } from "react-router-dom";
-import { FaInfoCircle } from "react-icons/fa";
-import { FaPencilAlt } from "react-icons/fa";
-import { FaTrash } from "react-icons/fa";
+import InfoBtn from "./buttons/InfoBtn";
+import DeleteBtn from "./buttons/DeleteBtn";
+import EditBtn from "./buttons/EditBtn";
 
 const CardView = ({ books, configureModalDelete, configureModalInfo }) => {
 
@@ -34,15 +33,9 @@ const CardView = ({ books, configureModalDelete, configureModalInfo }) => {
                             </div>
                         </div>
                         <div className="flex justify-end items-center gap-3 mt-2">
-                            <FaInfoCircle className="text-blue-400 cursor-pointer hover:scale-110 hover:shadow-lg transition-all duration-300" onClick={() => {
-                                configureModalInfo(book)
-                            }}/>
-                            <Link to={`books/edit/${book._id}`}>
-                                <FaPencilAlt className="text-yellow-300 hover:scale-110 hover:shadow-lg transition-all duration-300"/>
-                            </Link>
-                            <FaTrash onClick={() => {
-                                configureModalDelete(book._id)
-                            }} className="text-red-600 cursor-pointer hover:scale-110 hover:shadow-lg transition-all duration-300"/>
+                            <InfoBtn handleClick={() => { configureModalInfo(book) } }/>
+                            <EditBtn bookId={ book._id }/>
+                            <DeleteBtn handleClick={() => { configureModalDelete(book._id) } }/>
                         </div>
                     </div>
                 ))}

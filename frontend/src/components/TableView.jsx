@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom"
-import { FaInfoCircle } from "react-icons/fa"
-import { FaTrash } from "react-icons/fa"
-import { FaPencilAlt } from "react-icons/fa"
+import EditBtn from "./buttons/EditBtn"
+import InfoBtn from "./buttons/InfoBtn"
+import DeleteBtn from "./buttons/DeleteBtn"
 
 const TableView = ({ books, configureModalDelete, configureModalInfo }) => {
 
@@ -25,15 +24,9 @@ const TableView = ({ books, configureModalDelete, configureModalInfo }) => {
                 <td className="text-center p-2">{book.publishYear}</td>
                 <td className="h-full">
                   <div className="flex justify-center gap-x-4">
-                    <FaInfoCircle className="text-blue-400 cursor-pointer hover:scale-110 hover:shadow-lg transition-all duration-300" onClick={() => {
-                      configureModalInfo(book)
-                    }}/>
-                    <Link to={`books/edit/${book._id}`}>
-                      <FaPencilAlt className="text-yellow-300 hover:scale-110 hover:shadow-lg transition-all duration-300"/>
-                    </Link>
-                    <FaTrash onClick={() => {
-                      configureModalDelete(book._id)
-                    }} className="text-red-600 cursor-pointer hover:scale-110 hover:shadow-lg transition-all duration-300"/>
+                    <InfoBtn handleClick={() => { configureModalInfo(book) } }/>
+                    <EditBtn bookId={ book._id }/>
+                    <DeleteBtn handleClick={() => { configureModalDelete(book._id) } }/>
                   </div>
                 </td>
               </tr>
