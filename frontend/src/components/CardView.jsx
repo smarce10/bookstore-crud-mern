@@ -8,7 +8,7 @@ import { FaInfoCircle } from "react-icons/fa";
 import { FaPencilAlt } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 
-const CardView = ({ books, configureModal }) => {
+const CardView = ({ books, configureModalDelete, configureModalInfo }) => {
 
     return(
         <>
@@ -34,14 +34,15 @@ const CardView = ({ books, configureModal }) => {
                             </div>
                         </div>
                         <div className="flex justify-end items-center gap-3 mt-2">
-                            <Link to={`books/details/${book._id}`}>
-                                <FaInfoCircle className="text-blue-400"/>
-                            </Link>
+                            <FaInfoCircle className="text-blue-400" onClick={() => {
+                                console.log("aa")
+                                configureModalInfo(book)
+                            }}/>
                             <Link to={`books/edit/${book._id}`}>
                                 <FaPencilAlt className="text-yellow-300"/>
                             </Link>
                             <FaTrash onClick={() => {
-                                configureModal(book._id)
+                                configureModalDelete(book._id)
                             }} className="text-red-600 cursor-pointer"/>
                         </div>
                     </div>
