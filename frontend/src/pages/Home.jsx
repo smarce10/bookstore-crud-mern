@@ -5,7 +5,7 @@ import TableView from "../components/TableView"
 import CardView from "../components/CardView"
 import Loader from "../components/Loader"
 import ModalInfo from "../components/ModalInfo"
-import AddBtn from "../components/AddBtn"
+import AddBtn from "../components/buttons/AddBtn"
 
 
 const Home = () => {
