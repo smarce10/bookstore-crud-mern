@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react"
 import { bookService } from "../services/bookService"
-import { Link } from "react-router-dom"
-import { FaPlusCircle } from "react-icons/fa"
 import ModalDelete from "../components/ModalDelete"
 import TableView from "../components/TableView"
 import CardView from "../components/CardView"
 import Loader from "../components/Loader"
 import ModalInfo from "../components/ModalInfo"
+import AddBtn from "../components/AddBtn"
 
 
 const Home = () => {
@@ -65,9 +64,7 @@ const Home = () => {
               </button>
             </div>
 
-            <Link to={`books/create`}>
-              <FaPlusCircle className="h-full text-5xl text-gray-100 hover:text-gray-300 hover:scale-105 hover:shadow-lg transition-all duration-300" title="Add book"/>
-            </Link>
+            <AddBtn/>
           </div>
         </div>
         {useLoader ? (
@@ -77,6 +74,9 @@ const Home = () => {
         ) : (
             <TableView books={ books } configureModalDelete={ configureModalDelete } configureModalInfo={ configureModalInfo }/>
         )}
+        <div className="w-full flex justify-center items-center sm:hidden">
+          <AddBtn style={"mt-2"}/>
+        </div>
         {
           showModal && (
             <ModalDelete handleClose={() => {
