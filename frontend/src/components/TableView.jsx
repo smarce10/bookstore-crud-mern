@@ -25,15 +25,15 @@ const TableView = ({ books, configureModalDelete, configureModalInfo }) => {
                 <td className="text-center p-2">{book.publishYear}</td>
                 <td className="h-full">
                   <div className="flex justify-center gap-x-4">
-                    <FaInfoCircle className="text-blue-400" onClick={() => {
+                    <FaInfoCircle className="text-blue-400 cursor-pointer hover:scale-110 hover:shadow-lg transition-all duration-300" onClick={() => {
                       configureModalInfo(book)
                     }}/>
                     <Link to={`books/edit/${book._id}`}>
-                      <FaPencilAlt className="text-yellow-300"/>
+                      <FaPencilAlt className="text-yellow-300 hover:scale-110 hover:shadow-lg transition-all duration-300"/>
                     </Link>
                     <FaTrash onClick={() => {
                       configureModalDelete(book._id)
-                    }} className="text-red-600 cursor-pointer"/>
+                    }} className="text-red-600 cursor-pointer hover:scale-110 hover:shadow-lg transition-all duration-300"/>
                   </div>
                 </td>
               </tr>

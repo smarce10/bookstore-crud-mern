@@ -34,16 +34,15 @@ const CardView = ({ books, configureModalDelete, configureModalInfo }) => {
                             </div>
                         </div>
                         <div className="flex justify-end items-center gap-3 mt-2">
-                            <FaInfoCircle className="text-blue-400" onClick={() => {
-                                console.log("aa")
+                            <FaInfoCircle className="text-blue-400 cursor-pointer hover:scale-110 hover:shadow-lg transition-all duration-300" onClick={() => {
                                 configureModalInfo(book)
                             }}/>
                             <Link to={`books/edit/${book._id}`}>
-                                <FaPencilAlt className="text-yellow-300"/>
+                                <FaPencilAlt className="text-yellow-300 hover:scale-110 hover:shadow-lg transition-all duration-300"/>
                             </Link>
                             <FaTrash onClick={() => {
                                 configureModalDelete(book._id)
-                            }} className="text-red-600 cursor-pointer"/>
+                            }} className="text-red-600 cursor-pointer hover:scale-110 hover:shadow-lg transition-all duration-300"/>
                         </div>
                     </div>
                 ))}
