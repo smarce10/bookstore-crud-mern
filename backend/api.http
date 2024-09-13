@@ -3,16 +3,16 @@ POST http://localhost:5555/books
 Content-Type: application/json
 
 {
-    "title": "Harry potter",
+    "title": "Harry potter 4",
     "author": "J. K. Rowling",
-    "publishYear": 2007
+    "publishYear": 2009
 }
 
 ### Obtener todos los libros
 GET http://localhost:5555/books
 
 ### Obtener un libro por id
-GET http://localhost:5555/books/66d7a0cb172905e30b9f5870
+GET http://localhost:5555/books/66d799a7da374ac119c5634c
 
 ### Actualizar un libro
 PUT http://localhost:5555/books/66d799a7da374ac119c5634c

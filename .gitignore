@@ -1,4 +1,5 @@
 backend/node_modules
 backend/utilities/config.js
+backend/api.http
 frontend/node_modules
 .vscode
