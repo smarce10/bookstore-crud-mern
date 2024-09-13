@@ -6,12 +6,14 @@ import ModalDelete from "../components/ModalDelete"
 import TableView from "../components/TableView"
 import CardView from "../components/CardView"
 import Loader from "../components/Loader"
+import ModalInfo from "../components/ModalInfo"
 
 
 const Home = () => {
 
   const [books, setBooks] = useState([])
   const [showModal, setShowModal] = useState(false)
+  const [showModalInfo, setShowModalInfo] = useState(false)
   const [selectedBook, setSelectedBook] = useState()
   const [viewMode, setViewMode] = useState("card")
   const [useLoader, setUseLoader] = useState()
@@ -26,9 +28,14 @@ const Home = () => {
     } 
   }
 
-  const configureModal = (bookId) => {
+  const configureModalDelete = (bookId) => {
       setShowModal(true)
       setSelectedBook(bookId)
+  }
+
+  const configureModalInfo = (book) => {
+    setShowModalInfo(true)
+    setSelectedBook(book)
   }
 
   useEffect(()=> {
@@ -66,9 +73,9 @@ const Home = () => {
         {useLoader ? (
           <Loader/>
         ) : viewMode === "card" ? (
-            <CardView books={ books } configureModal={configureModal} />
+            <CardView books={ books } configureModalDelete={ configureModalDelete } configureModalInfo={ configureModalInfo }/>
         ) : (
-            <TableView books={ books } configureModal={configureModal}/>
+            <TableView books={ books } configureModalDelete={ configureModalDelete } configureModalInfo={ configureModalInfo }/>
         )}
         {
           showModal && (
@@ -76,6 +83,13 @@ const Home = () => {
               setShowModal(false)
               getBooks()
             }} bookId={selectedBook}/>
+          )
+        }
+        {
+          showModalInfo && (
+            <ModalInfo handleClose={() => {
+              setShowModalInfo(false)
+            }} book={selectedBook}/>
           )
         }
       </div>
