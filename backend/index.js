@@ -1,30 +1,33 @@
-import express, { response } from "express"
-import { PORT, mongoDBURL } from "./utilities/config.js"
-import mongoose from 'mongoose'
-import { Book } from "./models/bookModel.js"
-import booksRoute from "./routes/bookRoutes.js"
+import express from "express"
+import { createBookRouter } from "./routes/bookRoutes.js"
 import cors from 'cors'
+import mongoose from "mongoose"
+import { PORT, mongoDBURL } from "./utilities/config.js"
 
-const app = express()
 
-app.use(express.json())
+export const createApp = ({ bookModel }) => {
+    const app = express()
 
-app.use(cors())
+    app.use(express.json())
 
-app.get("/", (req, res) => {
-    res.send("<h1>HOLA</h1>")
-})
+    app.use(cors())
 
-app.use("/books", booksRoute)
+    app.use("/books", createBookRouter({ bookModel }))
 
-mongoose    
-    .connect(mongoDBURL)
-    .then(() => {
-        console.log('App connected to database')
-        app.listen(PORT, () => {
-            console.log(`App is listening to port: ${PORT}`)
-        })
+    // mongoose    
+    // .connect(mongoDBURL)
+    // .then(() => {
+    //     console.log('App connected to database')
+    //     app.listen(PORT, () => {
+    //         console.log(`App is listening to port: ${PORT}`)
+    //     })
+    // })
+    // .catch((error) => {
+    //     console.log(error)
+    // })
+
+    app.listen(PORT, () => {
+        console.log(`App is listening to port: ${PORT}`)
     })
-    .catch((error) => {
-        console.log(error)
-    })
+}
+

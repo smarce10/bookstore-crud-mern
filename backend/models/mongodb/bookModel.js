@@ -1,4 +1,14 @@
 import mongoose from "mongoose"
+import { mongoDBURL } from "../../utilities/config.js"
+
+mongoose    
+    .connect(mongoDBURL)
+    .then(() => {
+        console.log('App connected to database')
+    })
+    .catch((error) => {
+        console.log(error)
+    })
 
 const bookSchema = mongoose.Schema(
     {
@@ -20,4 +30,4 @@ const bookSchema = mongoose.Schema(
     }
 )
 
-export const Book = mongoose.model('Book', bookSchema)
+export const BookModel = mongoose.model('Book', bookSchema)
